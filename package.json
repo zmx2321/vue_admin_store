@@ -1,0 +1,13 @@
+{
+  "name": "vue_admin_store",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "main": "bash main.sh"
+  },
+  "author": "",
+  "license": "ISC"
+}
