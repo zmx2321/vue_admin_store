@@ -74,8 +74,10 @@ import ComponentBasicExample from './modules/component.basic.example'
 import ComponentExtendExample from './modules/component.extend.example'
 import PermissionExample from './modules/permission.example'
 import MockExample from './modules/mock.example'
-import VideosExample from './modules/videos.example'
+// import VideosExample from './modules/videos.example'
 import ExTernalLinkExample from './modules/external.link.example'
+
+import Demo from './modules/demo'
 
 // 当 children 不为空的主导航只有一项时，则隐藏
 let asyncRoutes = [
@@ -92,7 +94,8 @@ let asyncRoutes = [
             ComponentExtendExample,
             PermissionExample,
             MockExample,
-            ExTernalLinkExample
+            ExTernalLinkExample,
+            Demo
         ]
     },
     {
@@ -101,7 +104,7 @@ let asyncRoutes = [
             icon: 'sidebar-videos'
         },
         children: [
-            ...VideosExample
+            // ...VideosExample
         ]
     }
 ]

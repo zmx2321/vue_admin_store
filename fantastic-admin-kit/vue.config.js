@@ -72,7 +72,16 @@ module.exports = {
         //     '/': {
         //         target: process.env.VUE_APP_API_ROOT,
         //         changeOrigin: true
+        //     },
+        // '/api': {
+        //     // 用.env变量配置跨越
+        //     target: process.env.VUE_APP_API_ROOT,
+        //     ws: true,  // 是否启用websockets
+        //     changOrigin: true,  // 开启代理，在本地创建一个虚拟服务端
+        //     pathRewrite: {
+        //         '^/api': ''
         //     }
+        // }
         // },
     },
     transpileDependencies: ['element-ui'],

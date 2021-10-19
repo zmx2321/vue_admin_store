@@ -9,6 +9,9 @@ Vue.prototype.$api = api
 import dayjs from 'dayjs'
 Vue.prototype.$dayjs = dayjs
 
+import Qs from 'qs'
+Vue.prototype.$qs = Qs
+
 import auth from './util/auth'
 Vue.use(auth)
 

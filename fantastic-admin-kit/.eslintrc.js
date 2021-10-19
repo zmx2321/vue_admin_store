@@ -2,7 +2,10 @@ module.exports = {
     root: true,
     env: {
         browser: true,
-        es6: true
+        es6: true,
+        commonjs: true,
+        node: true
+
     },
     globals: {
         process: true,
@@ -86,4 +89,4 @@ module.exports = {
             'switchCase': 1
         }]
     }
-};
+}
