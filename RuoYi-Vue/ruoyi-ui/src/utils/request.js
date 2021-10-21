@@ -1,10 +1,14 @@
 import axios from 'axios'
-import { Notification, MessageBox, Message } from 'element-ui'
+import { Notification, MessageBox, Message, Loading } from 'element-ui'
 import store from '@/store'
 import { getToken } from '@/utils/auth'
 import errorCode from '@/utils/errorCode'
+import { tansParams } from "@/utils/ruoyi";
+import { saveAs } from 'file-saver'
 
-axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8'
+let downloadLoadingInstance;
+
+axios.defaults.headers['Conntent-Type'] = 'application/json;charset=utf-8'
 // 创建axios实例
 const service = axios.create({
   // axios中请求配置有baseURL选项，表示请求URL公共部分
@@ -12,6 +16,7 @@ const service = axios.create({
   // 超时
   timeout: 10000
 })
+
 // request拦截器
 service.interceptors.request.use(config => {
   // 是否需要设置 token
@@ -21,24 +26,7 @@ service.interceptors.request.use(config => {
   }
   // get请求映射params参数
   if (config.method === 'get' && config.params) {
-    let url = config.url + '?';
-    for (const propName of Object.keys(config.params)) {
-      const value = config.params[propName];
-      var part = encodeURIComponent(propName) + "=";
-      if (value !== null && typeof(value) !== "undefined") {
-        if (typeof value === 'object') {
-          for (const key of Object.keys(value)) {
-            if (value[key] !== null && typeof (value[key]) !== 'undefined') {
-              let params = propName + '[' + key + ']';
-              let subPart = encodeURIComponent(params) + '=';
-              url += subPart + encodeURIComponent(value[key]) + '&';
-            }
-          }
-        } else {
-          url += part + encodeURIComponent(value) + "&";
-        }
-      }
-    }
+    let url = config.url + '?' + tansParams(config.params);
     url = url.slice(0, -1);
     config.params = {};
     config.url = url;
@@ -102,5 +90,24 @@ service.interceptors.response.use(res => {
     return Promise.reject(error)
   }
 )
+
+// 通用下载方法
+export function download(url, params, filename) {
+  downloadLoadingInstance = Loading.service({ text: "正在下载数据，请稍后", spinner: "el-icon-loading", background: "rgba(0, 0, 0, 0.7)", })
+  return service.post(url, params, {
+    transformRequest: [(params) => { return tansParams(params) }],
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    responseType: 'blob'
+  }).then((data) => {
+    const content = data
+    const blob = new Blob([content])
+    saveAs(blob, filename)
+    downloadLoadingInstance.close();
+  }).catch((r) => {
+    console.error(r)
+    Message.error('下载文件出现错误，请联系管理员！')
+    downloadLoadingInstance.close();
+  })
+}
 
 export default service

@@ -1,7 +1,9 @@
-/**
+﻿/**
  * 通用js方法封装处理
  * Copyright (c) 2019 ruoyi
  */
+
+const baseURL = process.env.VUE_APP_BASE_API
 
 // 日期格式化
 export function parseTime(time, pattern) {
@@ -93,6 +95,11 @@ export function selectDictLabels(datas, value, separator) {
 	return actions.join('').substring(0, actions.join('').length - 1);
 }
 
+// 通用下载方法
+export function download(fileName) {
+	window.location.href = baseURL + "/common/download?fileName=" + encodeURI(fileName) + "&delete=" + true;
+}
+
 // 字符串格式化(%s )
 export function sprintf(str) {
 	var args = arguments, flag = true, i = 1;
@@ -180,4 +187,30 @@ export function handleTree(data, id, parentId, children) {
 		}
 	}
 	return tree;
+}
+
+/**
+* 参数处理
+* @param {*} params  参数
+*/
+export function tansParams(params) {
+	let result = ''
+	for (const propName of Object.keys(params)) {
+		const value = params[propName];
+		var part = encodeURIComponent(propName) + "=";
+		if (value !== null && typeof (value) !== "undefined") {
+			if (typeof value === 'object') {
+				for (const key of Object.keys(value)) {
+					if (value[key] !== null && typeof (value[key]) !== 'undefined') {
+						let params = propName + '[' + key + ']';
+						var subPart = encodeURIComponent(params) + "=";
+						result += subPart + encodeURIComponent(value[key]) + "&";
+					}
+				}
+			} else {
+				result += part + encodeURIComponent(value) + "&";
+			}
+		}
+	}
+	return result
 }
