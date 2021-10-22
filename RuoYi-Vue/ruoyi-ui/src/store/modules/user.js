@@ -40,6 +40,7 @@ const user = {
       const uuid = userInfo.uuid
       return new Promise((resolve, reject) => {
         login(username, password, code, uuid).then(res => {
+          // data:image/png;base64,
           // console.log(res)
           let data = res.data
           setToken(data.access_token)

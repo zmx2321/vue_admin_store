@@ -77,6 +77,7 @@ module.exports = {
 
   configureWebpack: {
     name: name,
+    devtool: 'source-map',  // debugger
     resolve: {
       alias: {
         '@': resolve('src')
