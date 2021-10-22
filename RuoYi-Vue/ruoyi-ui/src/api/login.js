@@ -53,6 +53,3 @@ export function getCodeImg() {
     timeout: 20000
   })
 }
-
-/* console.log(process.env.VUE_APP_PROX + '/code')
-console.log('/code') */
