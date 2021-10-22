@@ -31,22 +31,46 @@ module.exports = {
   productionSourceMap: false,
 
   // webpack-dev-server 相关配置
+
   devServer: {
     // host: '0.0.0.0',
     port: port,
     // open: true,
     https: false,
     hotOnly: false,
-    /* proxy: { // 配置跨域
-        '/api': {
-            // 用.env变量配置跨越
-            target: process.env.VUE_APP_BASE_API,
-            ws: true,  // 是否启用websockets
-            changOrigin: true,  // 开启代理，在本地创建一个虚拟服务端
-            pathRewrite: {
-                '^/api': ''
-            }
+    proxy: process.env.VUE_APP_PROX !== "" ? {
+      // 配置跨域
+      [process.env.VUE_APP_PROX]: {
+        // 用.env变量配置跨越
+        target: process.env.VUE_APP_BASE_API,
+        ws: true,  // 是否启用websockets
+        changOrigin: true,  // 开启代理，在本地创建一个虚拟服务端
+        pathRewrite: {
+          ['^' + process.env.VUE_APP_PROX]: ''
         }
+      }
+    } : undefined,
+    /* proxy: { // 配置跨域
+      [process.env.VUE_APP_PROX]: {
+        // 用.env变量配置跨越
+        target: process.env.VUE_APP_BASE_API,
+        ws: true,  // 是否启用websockets
+        changOrigin: true,  // 开启代理，在本地创建一个虚拟服务端
+        pathRewrite: {
+          ['^' + process.env.VUE_APP_PROX]: ''
+        }
+      }
+    }, */
+    /* proxy: { // 配置跨域
+      '/api': {
+        // 用.env变量配置跨越
+        target: process.env.VUE_APP_BASE_API,
+        ws: true,  // 是否启用websockets
+        changOrigin: true,  // 开启代理，在本地创建一个虚拟服务端
+        pathRewrite: {
+          '^/api': ''
+        }
+      }
     }, */
     disableHostCheck: true
   },

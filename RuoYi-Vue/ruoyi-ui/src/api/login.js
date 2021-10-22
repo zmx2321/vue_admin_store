@@ -3,7 +3,7 @@ import request from '@/utils/request'
 // 登录方法
 export function login(username, password, code, uuid) {
   return request({
-    url: '/auth/login',
+    url: process.env.VUE_APP_PROX + '/auth/login',
     method: 'post',
     data: { username, password, code, uuid }
   })
@@ -12,7 +12,7 @@ export function login(username, password, code, uuid) {
 // 注册方法
 export function register(data) {
   return request({
-    url: '/auth/register',
+    url: process.env.VUE_APP_PROX + '/auth/register',
     headers: {
       isToken: false
     },
@@ -24,7 +24,7 @@ export function register(data) {
 // 刷新方法
 export function refreshToken() {
   return request({
-    url: '/auth/refresh',
+    url: process.env.VUE_APP_PROX + '/auth/refresh',
     method: 'post'
   })
 }
@@ -32,7 +32,7 @@ export function refreshToken() {
 // 获取用户详细信息
 export function getInfo() {
   return request({
-    url: '/system/user/getInfo',
+    url: process.env.VUE_APP_PROX + '/system/user/getInfo',
     method: 'get'
   })
 }
@@ -40,7 +40,7 @@ export function getInfo() {
 // 退出方法
 export function logout() {
   return request({
-    url: '/auth/logout',
+    url: process.env.VUE_APP_PROX + '/auth/logout',
     method: 'delete'
   })
 }
@@ -48,8 +48,11 @@ export function logout() {
 // 获取验证码
 export function getCodeImg() {
   return request({
-    url: '/code',
+    url: process.env.VUE_APP_PROX + '/code',
     method: 'get',
     timeout: 20000
   })
 }
+
+/* console.log(process.env.VUE_APP_PROX + '/code')
+console.log('/code') */

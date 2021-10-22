@@ -3,7 +3,7 @@ import request from '@/utils/request'
 // 获取路由
 export const getRouters = () => {
   return request({
-    url: '/system/menu/getRouters',
+    url: process.env.VUE_APP_PROX + '/system/menu/getRouters',
     method: 'get'
   })
 }
