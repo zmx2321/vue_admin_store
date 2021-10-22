@@ -35,6 +35,8 @@ import DictTag from '@/components/DictTag'
 import VueMeta from 'vue-meta'
 // 字典数据组件
 import DictData from '@/components/DictData'
+// 高德地图
+import AMap from 'vue-amap'
 
 // 全局方法挂载
 Vue.prototype.getDicts = getDicts
@@ -59,6 +61,16 @@ Vue.use(directive)
 Vue.use(plugins)
 Vue.use(VueMeta)
 DictData.install()
+
+Vue.use(AMap)
+
+AMap.initAMapApiLoader({
+  // 高德key
+  key: '9f7114e40a863ee2916ca40025267e65',
+  // 插件集合 （插件按需引入）
+  // plugin: ['AMap.Geolocation', 'Geolocation', 'AMap.DistrictSearch', 'AMap.Marker']
+  plugin: ['AMap.Autocomplete', 'AMap.PlaceSearch', 'AMap.Scale', 'AMap.OverView', 'AMap.ToolBar', 'AMap.MapType', 'AMap.PolyEditor', 'AMap.CircleEditor','AMap.Geolocation']
+})
 
 /**
  * If you don't want to use mock-server
